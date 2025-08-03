@@ -1,8 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://b7t8pali5iwt4"]
+[gd_scene load_steps=19 format=3 uid="uid://b7t8pali5iwt4"]
 
 [ext_resource type="Texture2D" uid="uid://g3ptllkce4vr" path="res://bus/bus.png" id="1_scm5v"]
 [ext_resource type="Script" uid="uid://cpkvd8sqhe2w2" path="res://bus/bus.gd" id="1_turen"]
+[ext_resource type="PackedScene" uid="uid://0h7017aggg6i" path="res://people/npc.tscn" id="2_2e8t0"]
 [ext_resource type="PackedScene" uid="uid://cbxgji3vfp4nv" path="res://bus/door/bus_door.tscn" id="2_e3qt0"]
+[ext_resource type="PackedScene" uid="uid://wmht6527uk0u" path="res://bus/chair/bus_chair.tscn" id="4_phasv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e3qt0"]
 size = Vector2(2, 36)
@@ -40,8 +42,14 @@ size = Vector2(13, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpoxf"]
 size = Vector2(30, 2)
 
-[node name="Bus" type="StaticBody2D" groups=["navigation_polygon_source_geometry_group"]]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uumjb"]
+size = Vector2(140, 32)
+
+[node name="Bus" type="StaticBody2D" node_paths=PackedStringArray("spawn_markers_node") groups=["navigation_polygon_source_geometry_group"]]
+z_index = -1
 script = ExtResource("1_turen")
+npc_scene = ExtResource("2_2e8t0")
+spawn_markers_node = NodePath("SpawnMarkers")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_scm5v")
@@ -136,3 +144,175 @@ shape = SubResource("RectangleShape2D_rpoxf")
 [node name="CollisionShape2D5" type="CollisionShape2D" parent="."]
 position = Vector2(16, -17)
 shape = SubResource("RectangleShape2D_rpoxf")
+
+[node name="BusChair" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-44, -13)
+edge_chair = true
+
+[node name="BusChair2" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-34, -13)
+edge_chair = true
+
+[node name="BusChair3" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-24, -13)
+edge_chair = true
+
+[node name="BusChair4" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-44, -8)
+
+[node name="BusChair5" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-34, -8)
+
+[node name="BusChair6" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-24, -8)
+
+[node name="BusChair7" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-44, 8)
+
+[node name="BusChair8" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-34, 8)
+
+[node name="BusChair9" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-24, 8)
+
+[node name="BusChair10" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-44, 13)
+edge_chair = true
+
+[node name="BusChair11" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-34, 13)
+edge_chair = true
+
+[node name="BusChair12" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(-24, 13)
+edge_chair = true
+
+[node name="BusChair13" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(23, 8)
+
+[node name="BusChair14" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(29, 8)
+rotation = 3.14159
+
+[node name="BusChair16" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(23, 13)
+edge_chair = true
+
+[node name="BusChair17" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(29, 13)
+rotation = 3.14159
+edge_chair = true
+
+[node name="BusChair15" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(39, 8)
+
+[node name="BusChair29" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(57, -3)
+
+[node name="BusChair30" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(57, -8)
+
+[node name="BusChair31" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(57, -13)
+edge_chair = true
+
+[node name="BusChair18" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(45, 8)
+rotation = 3.14159
+
+[node name="BusChair19" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(39, 13)
+edge_chair = true
+
+[node name="BusChair20" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(45, 13)
+rotation = 3.14159
+edge_chair = true
+
+[node name="BusChair21" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(20, -13)
+edge_chair = true
+
+[node name="BusChair22" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(26, -13)
+rotation = 3.14159
+edge_chair = true
+
+[node name="BusChair23" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(20, -8)
+
+[node name="BusChair24" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(26, -8)
+rotation = 3.14159
+
+[node name="BusChair25" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(4, -13)
+edge_chair = true
+
+[node name="BusChair26" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(10, -13)
+rotation = 3.14159
+edge_chair = true
+
+[node name="BusChair27" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(4, -8)
+
+[node name="BusChair28" parent="." instance=ExtResource("4_phasv")]
+position = Vector2(10, -8)
+rotation = 3.14159
+
+[node name="BusArea" type="Area2D" parent="."]
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BusArea"]
+shape = SubResource("RectangleShape2D_uumjb")
+
+[node name="SpawnMarkers" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-55, -10)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-18, -1)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-15, 12)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-10, 12)
+
+[node name="Marker2D5" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(-5, 12)
+
+[node name="Marker2D6" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(0, 12)
+
+[node name="Marker2D7" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(5, 12)
+
+[node name="Marker2D8" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(10, 12)
+
+[node name="Marker2D9" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(15, 12)
+
+[node name="Marker2D10" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(16, 6)
+
+[node name="Marker2D11" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(1, -2)
+
+[node name="Marker2D12" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(29, -2)
+
+[node name="Marker2D13" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(21, 2)
+
+[node name="Marker2D14" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(47, 1)
+
+[node name="Marker2D15" type="Marker2D" parent="SpawnMarkers"]
+position = Vector2(50, -3)
+
+[connection signal="body_entered" from="BusArea" to="." method="_on_bus_area_body_entered"]
+[connection signal="body_exited" from="BusArea" to="." method="_on_bus_area_body_exited"]

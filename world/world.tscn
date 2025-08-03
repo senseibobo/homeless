@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ct36gdauti8ip"]
+[gd_scene load_steps=8 format=3 uid="uid://ct36gdauti8ip"]
 
 [ext_resource type="PackedScene" uid="uid://cmwxwut7v3tx" path="res://people/player/player.tscn" id="1_6xmxd"]
 [ext_resource type="Texture2D" uid="uid://bo3ejlwemsvpi" path="res://world/road.png" id="1_4717r"]
+[ext_resource type="Script" uid="uid://smgj3lpcwp6g" path="res://world/world.gd" id="1_fn3g3"]
 [ext_resource type="Script" uid="uid://b0jjc60miultb" path="res://world/road.gd" id="2_h5o24"]
 [ext_resource type="PackedScene" uid="uid://b7t8pali5iwt4" path="res://bus/bus.tscn" id="2_tcf2h"]
+[ext_resource type="PackedScene" uid="uid://dga0elk6tlecb" path="res://world/station/station.tscn" id="3_mmdvd"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_tcf2h"]
 vertices = PackedVector2Array(-53.5, 9.25, -53.5, 13.5, -67.5, 13.5, -67.5, 1.86719, 33.5, -13.5, 33.5, -20.5, 47.5, -17.5, 47.5, -4.5, -16.5, -13.5, -16.5, -20.5, -2.5, -17.5, -2.5, -3.5, -56.5, -20.5, -69, -20.5, -68.5313, -56.4766, 71.5, -55.5078, 71.5, -20.5, 48.5, -20.5, 48.5, -17.5, -1.5, -20.5, -1.5, -17.5, -51.5, -20.5, -51.5, -17.5, -52.5, -17.5, -46.5, -3.5, -46.5, -13.5, -23.5, -13.5, -23.5, -3.5, -45.5, 4.49219, -17.5, -3.5, -17.5, -13.5, -16.5, 3.5, 3.5, -3.5, 3.5, -13.5, 26.5, -13.5, 26.5, -3.5, 22.5, 3.5, 16.5, 3.5, 32.5, -3.5, 32.5, -13.5, 47.5, -2.5, 53.5, -4.5, 53.5, -13.5, 58.5, -13.5, 58.5, -2.5, 47.5, 13.5, 22.5, 13.5, 16.5, 13.5, -16.5, 13.5, -22.5, 3.5, -22.5, 13.5, -45.5, 13.5, -57.5, -1.84375, -52.5, -3.5, -57.5, -13.5, -56.5, -13.5)
@@ -12,13 +14,17 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(-71, -59, -72, 18, 74, 
 source_geometry_mode = 2
 agent_radius = 2.5
 
-[node name="World" type="Node2D"]
+[node name="World" type="Node2D" node_paths=PackedStringArray("first_bus")]
+script = ExtResource("1_fn3g3")
+first_bus = NodePath("Bus")
 
 [node name="Road" type="Sprite2D" parent="."]
+z_index = -5
 texture = ExtResource("1_4717r")
 centered = false
 offset = Vector2(-80, -45)
 script = ExtResource("2_h5o24")
+station_scene = ExtResource("3_mmdvd")
 
 [node name="Road2" type="Sprite2D" parent="Road"]
 position = Vector2(-160, 0)
@@ -28,12 +34,12 @@ offset = Vector2(-80, -45)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="Bus" parent="." node_paths=PackedStringArray("road") instance=ExtResource("2_tcf2h")]
+[node name="Bus" parent="." instance=ExtResource("2_tcf2h")]
 position = Vector2(0, -3)
-road = NodePath("../Road")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_tcf2h")
 
 [node name="Player" parent="." instance=ExtResource("1_6xmxd")]
+z_index = 0
 collision_layer = 1

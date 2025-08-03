@@ -10,6 +10,7 @@ radius = 1.0
 radius = 3.0
 
 [node name="Person" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "overlap_area")]
+z_index = 5
 collision_layer = 2
 script = ExtResource("1_l7mqu")
 nav_agent = NodePath("NavigationObstacle2D")
