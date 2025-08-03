@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx3axj4sov758"]
+
+[ext_resource type="Script" uid="uid://c13d1f6rgbrdq" path="res://people/person.gd" id="1_l7mqu"]
+[ext_resource type="Texture2D" uid="uid://di6h17yspakf4" path="res://people/textures/bald.png" id="2_303gn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0bxt6"]
+radius = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_303gn"]
+radius = 3.0
+
+[node name="Person" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "overlap_area")]
+collision_layer = 2
+script = ExtResource("1_l7mqu")
+nav_agent = NodePath("NavigationObstacle2D")
+overlap_area = NodePath("OverlapArea")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_303gn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0bxt6")
+
+[node name="NavigationObstacle2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 2.0
+target_desired_distance = 1.0
+
+[node name="OverlapArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OverlapArea"]
+shape = SubResource("CircleShape2D_303gn")

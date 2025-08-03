@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://cbxgji3vfp4nv"]
+
+[ext_resource type="Texture2D" uid="uid://ka54403a2ak6" path="res://bus/door/door.png" id="1_ksj0m"]
+[ext_resource type="Script" uid="uid://c4rd8cja8d2kh" path="res://bus/door/bus_door.gd" id="1_rdjat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rdjat"]
+size = Vector2(10, 2)
+
+[node name="BusDoor" type="StaticBody2D"]
+script = ExtResource("1_rdjat")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_ksj0m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rdjat")
