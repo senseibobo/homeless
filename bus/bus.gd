@@ -7,6 +7,8 @@ static var current_bus: Bus
 
 signal open_doors
 signal close_doors
+signal started_decelerating
+signal started_accelerating
 
 
 var current_speed: float = 0.0
@@ -17,6 +19,9 @@ var chairs: Array[BusChair]
 var overcrowdedness: int = randi_range(3,10)
 @export var npc_scene: PackedScene
 @export var spawn_markers_node: Node2D
+@export var enter_points_node: Node2D
+@export var exit_points_node: Node2D
+var exit_cooldowns: Dictionary = {}
 
 
 func do_driving_loop():
@@ -33,11 +38,16 @@ func _ready():
 		spawn_npc(marker.global_position)
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept"):
+		spawn_npc(Vector2())
+
+
 func spawn_npc(pos: Vector2):
 	var npc = npc_scene.instantiate()
 	npc.global_position = pos
 	npc.inside_bus = self
-	npc.global_rotation = randf()*TAU
+	npc.sprite.global_rotation = randf()*TAU
 	add_child(npc)
 	if randi()%2 == 0:
 		var chair_index = randi()%31
@@ -58,6 +68,7 @@ func _process(delta):
 
 func start_driving():
 	var tween: Tween = create_tween()
+	started_accelerating.emit()
 	tween.tween_property(self, "current_speed", max_speed, acceleration_time)
 	await tween.finished
 
@@ -65,6 +76,7 @@ func start_driving():
 func stop_driving():
 	var tween: Tween = create_tween()
 	tween.tween_property(self, "current_speed", 0.0, deceleration_time)
+	started_decelerating.emit()
 	var a = current_speed / deceleration_time
 	if current_bus == self:
 		Road.road.spawn_station(get_s_from_v0at(current_speed, a, deceleration_time), deceleration_time)
@@ -81,15 +93,23 @@ func get_s_from_v0at(v0: float, a: float, t: float):
 
 
 func _on_bus_area_body_entered(body: Node2D) -> void:
-	if body is Player:
-		current_bus = self
+	if body is Person:
+		if body.last_change + 10 > Time.get_ticks_msec(): return
+		body.last_change = Time.get_ticks_msec()
 		body.inside_bus = self
+		body.entered_bus.emit(self)
+		if body is Player:
+			current_bus = self
 
 
 func _on_bus_area_body_exited(body: Node2D) -> void:
-	if body is Player and current_bus == self:
-		current_bus = null
+	if body is Person:
+		if body.last_change + 10 > Time.get_ticks_msec(): return
+		body.last_change = Time.get_ticks_msec()
 		body.inside_bus = null
+		body.exited_bus.emit(self)
+		if body is Player and current_bus == self:
+			current_bus = null
 
 
 func get_nearest_chair(to_position: Vector2, unoccupied: bool = true):
@@ -102,3 +122,30 @@ func get_nearest_chair(to_position: Vector2, unoccupied: bool = true):
 			nearest_distance = distance
 			nearest = chair
 	return nearest
+
+
+func get_random_point() -> Vector2:
+	var map: RID = World.instance.navigation_region.get_navigation_map()
+	var size := Vector2(140,32)
+	var p: Vector2 = global_position-size/2.0+Vector2.DOWN*10.0
+	var point: Vector2 = p + Vector2(randf_range(0,size.x), randf_range(0,size.y)) 
+	return NavigationServer2D.map_get_closest_point(map, point)
+
+
+func get_closest_exit_point(to_point: Vector2) -> Vector2:
+	return get_closest_point(exit_points_node, to_point)
+
+
+func get_closest_enter_point(to_point: Vector2) -> Vector2:
+	return get_closest_point(enter_points_node, to_point)
+
+
+func get_closest_point(points_node: Node, to_point: Vector2) -> Vector2:
+	var nearest_distance: float = INF
+	var nearest_point: Vector2 = global_position
+	for point in points_node.get_children():
+		var distance = point.global_position.distance_to(to_point)
+		if distance < nearest_distance:
+			nearest_distance = distance
+			nearest_point = point.global_position
+	return nearest_point
