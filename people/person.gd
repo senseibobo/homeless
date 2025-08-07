@@ -58,12 +58,12 @@ func _physics_process(delta: float) -> void:
 			if target_chair.person_sitting != null:
 				target_chair = null
 				walking = false
-			if global_position.distance_to(target_chair.global_position) < 3.0:
+			elif global_position.distance_to(target_chair.global_position) < 3.0:
 				sit_on_chair(target_chair)
 	if inside_bus == null:
 		modulate = Color.BLACK
 		if Bus.current_bus:
-			pass#global_position.x += Bus.current_bus.current_speed*delta
+			global_position.x += Bus.current_bus.current_speed*delta
 	else:
 		modulate = Color.WHITE
 
@@ -119,5 +119,5 @@ func walk_to_random_point():
 
 func get_speed():
 	var speed: float = move_speed
-	speed /= 1+pow(overlap_area.get_overlapping_areas().size(),0.34)
+	speed /= 1#+pow(overlap_area.get_overlapping_areas().size(),0.05)
 	return speed

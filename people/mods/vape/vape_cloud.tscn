@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bd2pfxd382h4f"]
+
+[ext_resource type="Script" uid="uid://b3t04ujqvpk0k" path="res://people/mods/vape/vape_cloud.gd" id="1_qscff"]
+[ext_resource type="Texture2D" uid="uid://bx5lvi3k6mu7s" path="res://people/textures/vape_cloud_1.png" id="2_m71g7"]
+[ext_resource type="Texture2D" uid="uid://uus6prpsp7fo" path="res://people/textures/vape_cloud_2.png" id="3_nehmv"]
+[ext_resource type="Texture2D" uid="uid://bm6nxj0oksxui" path="res://people/textures/vape_cloud_3.png" id="4_xxmgd"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m71g7"]
+radius = 6.08276
+
+[node name="VapeCloud" type="Node2D" node_paths=PackedStringArray("sprite", "area")]
+script = ExtResource("1_qscff")
+textures = Array[Texture2D]([ExtResource("2_m71g7"), ExtResource("3_nehmv"), ExtResource("4_xxmgd")])
+sprite = NodePath("Sprite2D")
+area = NodePath("Area2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_nehmv")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_m71g7")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

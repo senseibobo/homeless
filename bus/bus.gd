@@ -21,7 +21,7 @@ var overcrowdedness: int = randi_range(3,10)
 @export var spawn_markers_node: Node2D
 @export var enter_points_node: Node2D
 @export var exit_points_node: Node2D
-var exit_cooldowns: Dictionary = {}
+@export var bus_area: Area2D
 
 
 func do_driving_loop():

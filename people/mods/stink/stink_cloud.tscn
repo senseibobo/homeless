@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ce7pljtamffjj"]
+
+[ext_resource type="Script" uid="uid://dt7p2tkgr6wjt" path="res://people/mods/stink/stink_cloud.gd" id="1_1d1rs"]
+[ext_resource type="Texture2D" uid="uid://cxit04tfe6gji" path="res://people/textures/stink_cloud.png" id="2_1d1rs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1d1rs"]
+radius = 5.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_1d1rs"]
+
+[node name="StinkCloud" type="Node2D" node_paths=PackedStringArray("area")]
+script = ExtResource("1_1d1rs")
+area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("CircleShape2D_1d1rs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_1d1rs")
+texture = ExtResource("2_1d1rs")

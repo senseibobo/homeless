@@ -1,0 +1,127 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1s45xrwn6tqa"]
+
+[ext_resource type="Script" uid="uid://dljuelf2kxedp" path="res://people/mods/vape/vape.gd" id="1_3t2xl"]
+[ext_resource type="PackedScene" uid="uid://bd2pfxd382h4f" path="res://people/mods/vape/vape_cloud.tscn" id="2_scss4"]
+
+[sub_resource type="Animation" id="Animation_042il"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.698132]
+}
+
+[sub_resource type="Animation" id="Animation_3t2xl"]
+resource_name = "puff"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Visual:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 1.9),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visual:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.433333, 1.23333, 1.86601),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-1, 1.615), Vector2(-1, -3.57628e-07), Vector2(-1, -3.57628e-07), Vector2(-1, 2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visual:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.433333, 1.23333, 1.86601),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [-0.698132, 0.0, 0.0, -0.785398]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(2.33333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"exhale"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_68tw4"]
+_data = {
+&"RESET": SubResource("Animation_042il"),
+&"puff": SubResource("Animation_3t2xl")
+}
+
+[node name="Vape" type="Node2D" node_paths=PackedStringArray("animation_player", "vape_clouds_start_position")]
+script = ExtResource("1_3t2xl")
+animation_player = NodePath("AnimationPlayer")
+vape_cloud_scene = ExtResource("2_scss4")
+vape_clouds_start_position = NodePath("VapeCloudsStartPosition")
+
+[node name="VapeCloudsStartPosition" type="Marker2D" parent="."]
+
+[node name="Visual" type="Node2D" parent="."]
+visible = false
+position = Vector2(-1, 0)
+rotation = -0.698132
+
+[node name="VapeRect" type="ColorRect" parent="Visual"]
+offset_left = -3.0
+offset_top = -0.615
+offset_right = 1.0
+offset_bottom = 1.385
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_68tw4")
+}

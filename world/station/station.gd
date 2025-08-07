@@ -15,7 +15,7 @@ var spawned_bus: bool = false
 
 func _ready():
 	current_station = self
-	await get_tree().create_timer(0.05)
+	await get_tree().create_timer(0.05).timeout
 	for i in spawn_positions_node.get_child_count():
 		if randi()%100 < 80:
 			var npc: Npc = spawn_npc(spawn_positions_node.get_child(i).global_position)
@@ -29,8 +29,7 @@ func _exit_tree():
 
 func spawn_npc(pos: Vector2):
 	var npc = npc_scene.instantiate()
-	Bus.current_bus.exit_cooldowns[npc] = 0.1
-	add_child(npc)
+	get_tree().current_scene.add_child(npc)
 	npc.global_position = pos
 	npc.inside_bus = null
 	npc.sprite.global_rotation = randf()*TAU

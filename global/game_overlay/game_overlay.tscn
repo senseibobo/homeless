@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://hi131l2x3rw4"]
+
+[ext_resource type="Script" uid="uid://bv2jqw5gfns6p" path="res://global/game_overlay/game_overlay.gd" id="1_y67sb"]
+[ext_resource type="Shader" uid="uid://bty6n3gwu1du7" path="res://shaders/vape_smoke_shader.gdshader" id="2_hino2"]
+[ext_resource type="Script" uid="uid://bn684j04gn6pl" path="res://people/mods/vape/vape_smoke_overlay.gd" id="3_d0wrr"]
+
+[sub_resource type="Gradient" id="Gradient_oiavp"]
+colors = PackedColorArray(0, 0, 0, 0, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oiavp"]
+frequency = 0.023
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_byas7"]
+width = 160
+height = 90
+seamless = true
+color_ramp = SubResource("Gradient_oiavp")
+noise = SubResource("FastNoiseLite_oiavp")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nhhdc"]
+shader = ExtResource("2_hino2")
+shader_parameter/color_count = 6.0
+shader_parameter/smoke_strength = 1.0
+shader_parameter/smoke_radius = 0.06
+shader_parameter/smoke_feather = 0.892
+shader_parameter/smoke_center = Vector2(0.5, 0.5)
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_byas7")
+
+[node name="GameOverlay" type="CanvasLayer" node_paths=PackedStringArray("vape_smoke_overlay")]
+script = ExtResource("1_y67sb")
+vape_smoke_overlay = NodePath("VapeSmokeOverlay")
+
+[node name="VapeSmokeOverlay" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_nhhdc")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("3_d0wrr")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlu0h4jltymcx"]
+
+[ext_resource type="Script" uid="uid://ce5jujyq5jec3" path="res://people/mods/stink/stink.gd" id="1_gr5mn"]
+[ext_resource type="PackedScene" uid="uid://ce7pljtamffjj" path="res://people/mods/stink/stink_cloud.tscn" id="2_612jv"]
+
+[node name="Stink" type="Node2D" node_paths=PackedStringArray("canvas_group")]
+z_index = 2107
+z_as_relative = false
+script = ExtResource("1_gr5mn")
+stink_cloud_scene = ExtResource("2_612jv")
+canvas_group = NodePath("CanvasGroup")
+
+[node name="CanvasGroup" type="CanvasGroup" parent="."]
+self_modulate = Color(0.368467, 1, 0.255677, 0.447059)
+top_level = true

@@ -45,13 +45,14 @@ size = Vector2(13, 18)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpoxf"]
 size = Vector2(30, 2)
 
-[node name="Bus" type="StaticBody2D" node_paths=PackedStringArray("spawn_markers_node", "enter_points_node", "exit_points_node") groups=["navigation_polygon_source_geometry_group"]]
+[node name="Bus" type="StaticBody2D" node_paths=PackedStringArray("spawn_markers_node", "enter_points_node", "exit_points_node", "bus_area") groups=["navigation_polygon_source_geometry_group"]]
 z_index = -1
 script = ExtResource("1_turen")
 npc_scene = ExtResource("2_2e8t0")
 spawn_markers_node = NodePath("SpawnMarkers")
 enter_points_node = NodePath("EnterPoints")
 exit_points_node = NodePath("ExitPoints")
+bus_area = NodePath("BusArea")
 
 [node name="BusArea" type="Area2D" parent="."]
 collision_layer = 4

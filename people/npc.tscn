@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://0h7017aggg6i"]
+[gd_scene load_steps=12 format=3 uid="uid://0h7017aggg6i"]
 
 [ext_resource type="PackedScene" uid="uid://bx3axj4sov758" path="res://people/person.tscn" id="1_28a4l"]
 [ext_resource type="Texture2D" uid="uid://b3youyxg5r3vf" path="res://people/textures/frog.png" id="2_crwxw"]
@@ -8,27 +8,22 @@
 [ext_resource type="Texture2D" uid="uid://b126b3ceatsln" path="res://people/textures/homeless.png" id="4_onmmh"]
 [ext_resource type="Texture2D" uid="uid://biu4kqexbkawk" path="res://people/textures/checker.png" id="5_7j1lu"]
 [ext_resource type="Texture2D" uid="uid://ci6db4617wfj8" path="res://people/textures/cool.png" id="6_enl8x"]
+[ext_resource type="PackedScene" uid="uid://b1s45xrwn6tqa" path="res://people/mods/vape/vape.tscn" id="9_onmmh"]
+[ext_resource type="PackedScene" uid="uid://dlu0h4jltymcx" path="res://people/mods/stink/stink.tscn" id="10_7j1lu"]
 
 [sub_resource type="Resource" id="Resource_wf47a"]
 script = ExtResource("3_0st35")
 metadata/_custom_type_script = "uid://dmo874kc6010i"
 
-[node name="Npc" node_paths=PackedStringArray("stink_particles") instance=ExtResource("1_28a4l")]
+[node name="Npc" instance=ExtResource("1_28a4l")]
 script = ExtResource("2_htcs3")
-stink_particles = NodePath("StinkParticles")
 npc_textures = Array[Texture2D]([ExtResource("3_6pkwo"), ExtResource("4_onmmh"), ExtResource("5_7j1lu"), ExtResource("6_enl8x"), ExtResource("2_crwxw")])
 ai = SubResource("Resource_wf47a")
 
-[node name="StinkParticles" type="CPUParticles2D" parent="." index="0"]
-amount = 40
-local_coords = true
-spread = 180.0
-gravity = Vector2(0, 0)
-initial_velocity_min = 4.0
-initial_velocity_max = 7.0
-scale_amount_min = 2.0
-scale_amount_max = 2.0
-color = Color(0, 0.741176, 0.0823529, 0.403922)
-
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_crwxw")
+
+[node name="Vape" parent="Sprite2D" index="0" instance=ExtResource("9_onmmh")]
+position = Vector2(-2.5, 0)
+
+[node name="Stink" parent="Sprite2D" index="1" instance=ExtResource("10_7j1lu")]

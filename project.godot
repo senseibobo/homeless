@@ -15,6 +15,10 @@ run/main_scene="uid://ct36gdauti8ip"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameOverlay="*res://global/game_overlay/game_overlay.tscn"
+
 [display]
 
 window/size/viewport_width=160
@@ -59,6 +63,8 @@ interact={
 
 2d_physics/layer_1="ground"
 2d_physics/layer_2="people"
+2d_physics/layer_3="bus"
+2d_physics/layer_4="other"
 
 [rendering]
 

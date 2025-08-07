@@ -9,21 +9,23 @@ var stinky: bool = randi()%100 < 10 #% chance
 
 func _ready():
 	super()
-	stink_particles.emitting = stinky
 	_init_ai()
-	entered_bus.connect(_on_bus_entered)
-	exited_bus.connect(_on_bus_exited)
 	last_change = Time.get_ticks_msec()
 	sprite.texture = npc_textures.pick_random()
 
 
-func exit_bus():
+func _physics_process(delta):
+	super(delta)
+	if global_position.distance_squared_to(Vector2()) > 70000: queue_free()
+
+
+func exit_bus(bus: Bus):
 	started_exiting.emit()
-	var exit_point: Vector2 = inside_bus.get_closest_exit_point(global_position)
+	var exit_point: Vector2 = bus.get_closest_exit_point(global_position)
 	exit_point.x += randf_range(2,2)
 	exit_point.y += randf_range(2,2)
 	set_destination(exit_point)
-	await inside_bus.open_doors
+	await bus.open_doors
 	set_destination(exit_point + Vector2.UP*(20+randf_range(0,10)))
 
 
@@ -36,14 +38,3 @@ func enter_bus():
 	await Bus.current_bus.open_doors
 	set_destination(enter_point + Vector2.DOWN*(20+randf_range(0,10)))
 	await entered_bus
-
-
-
-func _on_bus_entered(bus: Bus):
-	print("bus enteredd")
-	reparent.call_deferred(bus)
-
-
-func _on_bus_exited(bus: Bus):
-	print("bus exiteddd")
-	reparent.call_deferred(Station.current_station)
