@@ -40,8 +40,8 @@ func _process_movement(delta):
 
 
 func _process_out_of_bus_movement(delta):
-	in_bus = Bus.current_bus.bus_area in area.get_overlapping_areas()
-	if not in_bus and is_instance_valid(Bus.current_bus):
+	if not is_instance_valid(Bus.current_bus) or not Bus.player_in_bus: return
+	if not Bus.current_bus.bus_area in area.get_overlapping_areas():
 		global_position.x += Bus.current_bus.current_speed*delta
 
 

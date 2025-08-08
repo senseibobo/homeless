@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://0h7017aggg6i"]
+[gd_scene load_steps=11 format=3 uid="uid://0h7017aggg6i"]
 
 [ext_resource type="PackedScene" uid="uid://bx3axj4sov758" path="res://people/person.tscn" id="1_28a4l"]
 [ext_resource type="Texture2D" uid="uid://b3youyxg5r3vf" path="res://people/textures/frog.png" id="2_crwxw"]
 [ext_resource type="Script" uid="uid://mr4ld8rekulv" path="res://people/npc.gd" id="2_htcs3"]
-[ext_resource type="Script" uid="uid://dmo874kc6010i" path="res://people/ais/npc_ai.gd" id="3_0st35"]
 [ext_resource type="Texture2D" uid="uid://xjy3phcjql7s" path="res://people/textures/slick.png" id="3_6pkwo"]
 [ext_resource type="Texture2D" uid="uid://b126b3ceatsln" path="res://people/textures/homeless.png" id="4_onmmh"]
 [ext_resource type="Texture2D" uid="uid://biu4kqexbkawk" path="res://people/textures/checker.png" id="5_7j1lu"]
@@ -11,14 +10,15 @@
 [ext_resource type="PackedScene" uid="uid://b1s45xrwn6tqa" path="res://people/mods/vape/vape.tscn" id="9_onmmh"]
 [ext_resource type="PackedScene" uid="uid://dlu0h4jltymcx" path="res://people/mods/stink/stink.tscn" id="10_7j1lu"]
 
-[sub_resource type="Resource" id="Resource_wf47a"]
-script = ExtResource("3_0st35")
-metadata/_custom_type_script = "uid://dmo874kc6010i"
+[sub_resource type="LabelSettings" id="LabelSettings_onmmh"]
+line_spacing = -6.0
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
 
-[node name="Npc" instance=ExtResource("1_28a4l")]
+[node name="Npc" node_paths=PackedStringArray("debug_label") instance=ExtResource("1_28a4l")]
 script = ExtResource("2_htcs3")
 npc_textures = Array[Texture2D]([ExtResource("3_6pkwo"), ExtResource("4_onmmh"), ExtResource("5_7j1lu"), ExtResource("6_enl8x"), ExtResource("2_crwxw")])
-ai = SubResource("Resource_wf47a")
+debug_label = NodePath("DebugLabel")
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_crwxw")
@@ -27,3 +27,13 @@ texture = ExtResource("2_crwxw")
 position = Vector2(-2.5, 0)
 
 [node name="Stink" parent="Sprite2D" index="1" instance=ExtResource("10_7j1lu")]
+
+[node name="DebugLabel" type="Label" parent="." index="4"]
+z_index = 400
+offset_right = 40.0
+offset_bottom = 23.0
+scale = Vector2(0.08, 0.08)
+text = "test
+test
+test"
+label_settings = SubResource("LabelSettings_onmmh")

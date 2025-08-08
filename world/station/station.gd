@@ -5,8 +5,6 @@ extends Node2D
 static var current_station: Station
 
 var waited_time: float = 0.0
-var spawned_bus: bool = false
-
 
 @export var bus_scene: PackedScene 
 @export var spawn_positions_node: Node2D
@@ -19,8 +17,14 @@ func _ready():
 	for i in spawn_positions_node.get_child_count():
 		if randi()%100 < 80:
 			var npc: Npc = spawn_npc(spawn_positions_node.get_child(i).global_position)
-			if randi()%100 < 30:
-				npc.enter_bus()
+			wait_for_bus_arrival(npc)
+
+
+func wait_for_bus_arrival(npc: Npc):
+	await Bus.current_bus.open_doors
+	if randi()%100 < 30:
+		print("ENTERINGGG")
+		npc.enter_bus()
 
 
 func _exit_tree():
@@ -37,7 +41,7 @@ func spawn_npc(pos: Vector2):
 
 
 func _process(delta):
-	if Bus.current_bus:
+	if Bus.player_in_bus:
 		global_position.x += Bus.current_bus.current_speed*delta
 		if global_position.x > 120:
 			queue_free()
@@ -49,13 +53,14 @@ func _process(delta):
 
 
 func spawn_bus():
-	spawned_bus = true
+	# spawning
 	var bus: Bus = bus_scene.instantiate()
 	get_tree().current_scene.add_child(bus)
 	bus.current_speed = bus.max_speed
 	var a: float = bus.current_speed / bus.deceleration_time
 	var start_x: float = -0.5*bus.get_s_from_v0at(bus.current_speed, a, bus.deceleration_time)
-	print(start_x)
 	bus.global_position = Vector2(start_x, -3.0)
+	
+	# driving
 	await bus.stop_driving()
 	bus.do_driving_loop()

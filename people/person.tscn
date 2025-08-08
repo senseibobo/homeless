@@ -9,14 +9,13 @@ radius = 1.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_303gn"]
 radius = 3.0
 
-[node name="Person" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "overlap_area", "sprite", "state_label")]
+[node name="Person" type="CharacterBody2D" node_paths=PackedStringArray("nav_agent", "overlap_area", "sprite")]
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_l7mqu")
 nav_agent = NodePath("NavigationObstacle2D")
 overlap_area = NodePath("OverlapArea")
 sprite = NodePath("Sprite2D")
-state_label = NodePath("StateLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_303gn")
@@ -34,20 +33,3 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="OverlapArea"]
 shape = SubResource("CircleShape2D_303gn")
-
-[node name="StateLabel" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -152.5
-offset_top = -15.5
-offset_right = 152.5
-offset_bottom = 7.5
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.105, 0.105)
-pivot_offset = Vector2(152.235, 11.995)
-horizontal_alignment = 1
-vertical_alignment = 1
