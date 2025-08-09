@@ -15,7 +15,7 @@ void fragment() {
 	vec4 mixed_smoke = mix(sample1,sample2,0.5);
 	mixed_smoke.a = clamp(mixed_smoke.a*smoke_strength*8.0, 0.0, 1.0);
 	mixed_smoke = round(mixed_smoke*color_count)/color_count;
-	
+
 	vec4 screen_sample = texture(SCREEN_TEXTURE, SCREEN_UV);
 	vec2 scaled_uv = vec2(UV.x*aspect_ratio, UV.y);
 	vec2 scaled_center = vec2(smoke_center.x*aspect_ratio, smoke_center.y);

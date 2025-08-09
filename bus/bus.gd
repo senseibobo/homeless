@@ -17,7 +17,9 @@ var max_speed: float = 200.0
 var acceleration_time: float = 2.0
 var deceleration_time: float = 2.4
 var chairs: Array[BusChair]
+var people: Array[Person]
 var overcrowdedness: int = randi_range(3,10)
+var recalculate_npc_count_timer: float = 0.0
 @export var npc_scene: PackedScene
 @export var spawn_markers_node: Node2D
 @export var enter_points_node: Node2D
@@ -80,6 +82,7 @@ func _process(delta):
 				if npc.inside_bus == self:
 					npc.queue_free()
 			queue_free()
+	
 
 
 func start_driving():

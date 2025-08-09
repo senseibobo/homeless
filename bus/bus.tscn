@@ -1,10 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://b7t8pali5iwt4"]
+[gd_scene load_steps=23 format=3 uid="uid://b7t8pali5iwt4"]
 
 [ext_resource type="Texture2D" uid="uid://g3ptllkce4vr" path="res://bus/bus.png" id="1_scm5v"]
 [ext_resource type="Script" uid="uid://cpkvd8sqhe2w2" path="res://bus/bus.gd" id="1_turen"]
 [ext_resource type="PackedScene" uid="uid://0h7017aggg6i" path="res://people/npc.tscn" id="2_2e8t0"]
 [ext_resource type="PackedScene" uid="uid://cbxgji3vfp4nv" path="res://bus/door/bus_door.tscn" id="2_e3qt0"]
+[ext_resource type="Script" uid="uid://dl3v8mvkijg0y" path="res://bus/bus_audio.gd" id="3_a7333"]
+[ext_resource type="AudioStream" uid="uid://c6awe50rc3sgc" path="res://audio/bus_idle.ogg" id="4_alkmk"]
 [ext_resource type="PackedScene" uid="uid://wmht6527uk0u" path="res://bus/chair/bus_chair.tscn" id="4_phasv"]
+[ext_resource type="AudioStream" uid="uid://bujambwgad231" path="res://audio/bus_accelerating.ogg" id="5_uj4ce"]
+[ext_resource type="AudioStream" uid="uid://corc8ocrroaob" path="res://audio/people_talking_a_lot.ogg" id="6_uj4ce"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uumjb"]
 size = Vector2(140, 32)
@@ -61,6 +65,24 @@ input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BusArea"]
 shape = SubResource("RectangleShape2D_uumjb")
+
+[node name="BusAudio" type="Node" parent="." node_paths=PackedStringArray("idle_player", "acceleration_player", "people_player")]
+script = ExtResource("3_a7333")
+idle_player = NodePath("IdlePlayer")
+acceleration_player = NodePath("AccelerationPlayer")
+people_player = NodePath("PeoplePlayer")
+
+[node name="IdlePlayer" type="AudioStreamPlayer" parent="BusAudio"]
+stream = ExtResource("4_alkmk")
+autoplay = true
+
+[node name="AccelerationPlayer" type="AudioStreamPlayer" parent="BusAudio"]
+stream = ExtResource("5_uj4ce")
+autoplay = true
+
+[node name="PeoplePlayer" type="AudioStreamPlayer" parent="BusAudio"]
+stream = ExtResource("6_uj4ce")
+autoplay = true
 
 [node name="SpawnMarkers" type="Node2D" parent="."]
 

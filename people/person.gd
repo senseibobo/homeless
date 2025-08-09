@@ -30,7 +30,15 @@ var move_speed: float = 15.0
 var walking: bool = false
 var target_chair: BusChair
 var sitting_on_chair: BusChair
-var inside_bus: Bus = null
+var inside_bus: Bus = null:
+	set(value):
+		if value == null and is_instance_valid(inside_bus):
+			inside_bus.people.erase(self)
+		elif is_instance_valid(value) and inside_bus == null:
+			value.people.append(self)
+		inside_bus = value
+	get: 
+		return inside_bus
 var last_change: int
 
 

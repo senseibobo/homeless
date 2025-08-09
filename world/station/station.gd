@@ -32,7 +32,7 @@ func _exit_tree():
 
 
 func spawn_npc(pos: Vector2):
-	var npc = npc_scene.instantiate()
+	var npc: Npc = npc_scene.instantiate()
 	get_tree().current_scene.add_child(npc)
 	npc.global_position = pos
 	npc.inside_bus = null
